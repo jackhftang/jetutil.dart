@@ -63,7 +63,16 @@ int logCeil(int b, int n){
   return cnt;
 }
 
-int modpow(int m, int x, int n){
+/* modulo */
+
+
+// dart auto-normalize modulo
+//int modNorm(int m, int x){
+//  int t = x % m;
+//  return t < 0 ? t + m : t;
+//}
+
+int modPow(int m, int x, int n){
   int acc = 1; x %= m;
   while(n != 0){
     if( n & 1 == 1 )  acc = acc*x%m;
@@ -72,7 +81,7 @@ int modpow(int m, int x, int n){
   }
   return acc;
 }
-int modinv(int m, int i){
+int modInv(int m, int i){
   var arr = extgcd(m,i);
   int x = arr[1], g = arr[2]; // 0 < g && 0 <= x < m
   return (g.sign * x)%m;

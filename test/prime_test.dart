@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import '../lib/src/prime.dart';
+import 'package:jetutil/src/prime.dart';
 
 // first 100 primes number
 var primes = [
@@ -14,7 +14,7 @@ var primes = [
 
 void main(){
 
-  test("isPrime()", () {
+  test("isPrime(int n)", (){
     for(var i=0, j=1; i < primes.length; j++){
       var t = j == primes[i];
       expect(isPrime(j), equals(t));
@@ -22,12 +22,12 @@ void main(){
     }
   });
 
-  test("primeList()", (){
+  test("primeList(int len)", (){
     var lis = primeList(primes.length);
     expect( lis, equals(primes) );
   });
 
-  
+
 
 }
 
