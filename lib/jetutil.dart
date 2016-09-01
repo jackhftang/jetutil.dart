@@ -1,7 +1,7 @@
 export 'dart:math';
 export 'dart:collection';
 
-export 'src/io/ByteListReader.dart';
+export 'src/io/ByteListScanner.dart';
 export 'src/iterable.dart';
 export 'src/numeric.dart';
 export 'src/predicate.dart';

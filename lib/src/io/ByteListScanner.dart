@@ -1,4 +1,4 @@
-class ByteListReader {
+class ByteListScanner {
   static const int EOF = -1;
   static const int NEW_LINE = 10;
   static const int SPACE = 32;
@@ -18,9 +18,9 @@ class ByteListReader {
   int ix = 0;
   List<int> content;
 
-  ByteListReader(this.content);
+  ByteListScanner(this.content);
 
-  int readByte(){
+  int nextByte(){
     return ix >= content.length ? EOF : content[ix++];
   }
 
@@ -30,11 +30,11 @@ class ByteListReader {
 
   void _next(){ ix++; }
 
-  String readChar(){
-    return new String.fromCharCode(readByte());
+  String nextChar(){
+    return new String.fromCharCode(nextByte());
   }
 
-  String readWord([accept]){
+  String nextWord([accept]){
     StringBuffer buf = new StringBuffer();
     if(accept == null) accept = (c) => c != NEW_LINE && c != SPACE;
     int c;
@@ -43,7 +43,7 @@ class ByteListReader {
     return buf.toString();
   }
 
-  String readLine(){
+  String nextLine(){
     StringBuffer buf = new StringBuffer();
     var accept = (c) => c != NEW_LINE;
     int c;
@@ -52,7 +52,7 @@ class ByteListReader {
     return buf.toString();
   }
 
-  int readInt([int base=10]){
+  int nextInt([int base=10]){
     // only support base 2 to 10
     int integer(int n){
       int c = peekByte();
@@ -63,18 +63,18 @@ class ByteListReader {
       }
       return n;
     }
-    for(int c = readByte(); c != EOF; c = readByte() ){
+    for(int c = nextByte(); c != EOF; c = nextByte() ){
       if( isDigit(c) ) return integer(c-ZERO);
-      else if ( c == MINUS && isDigit(c = readByte()) ) return -integer(c-ZERO);
+      else if ( c == MINUS && isDigit(c = nextByte()) ) return -integer(c-ZERO);
     }
     return 0;
   }
 
-  double readDouble(){
+  double nextDouble(){
     double decimal(double f){
       double b = 1.0;
       for(int c = peekByte(); isDigit(c); c = peekByte() ){
-        b /= 10.0; f += b*(readByte()-ZERO);
+        b /= 10.0; f += b*(nextByte()-ZERO);
       }
       return f;
     }
@@ -85,12 +85,12 @@ class ByteListReader {
         _next();
         c = peekByte();
       }
-      if( c == DOT ){ readByte(); return decimal(0.0) + n; }
+      if( c == DOT ){ nextByte(); return decimal(0.0) + n; }
       return 0.0 + n;
     }
-    for(int c=readByte(); c >=0; c=readByte() ){
+    for(int c=nextByte(); c >=0; c=nextByte() ){
       if( isDigit(c) ) return integer(c-ZERO);
-      else if( c == MINUS && isDigit(c = readByte())) return -integer(c-ZERO);
+      else if( c == MINUS && isDigit(c = nextByte())) return -integer(c-ZERO);
     }
     return 0.0;
   }
