@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:jetutil/src/leastSquare.dart';
+import 'package:jetutil/src/algorithm/leastSquare.dart';
 
 main() {
   check(res, truth, err, [eps = 1e-6]){

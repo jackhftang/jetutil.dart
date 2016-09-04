@@ -86,3 +86,59 @@ int modInv(int m, int i){
   int x = arr[1], g = arr[2]; // 0 < g && 0 <= x < m
   return (g.sign * x)%m;
 }
+
+
+dot(List a, List b){
+  assert(a.length == b.length);
+  var len = a.length, acc = 0;
+  for(var i=0; i<len; i++) acc += a[i] * b[i];
+  return acc;
+}
+
+
+double mean(List<num> x){
+  assert(x.length > 0);
+  var s = 0.0;
+  for(var i in x) s += i;
+  return s/x.length;
+}
+
+double covariance(List<num> x, List<num> y){
+//  if( x.length != y.length ) throw new StateError('unequal dimension');
+  assert( x.length == y.length );
+
+  var len = x.length, s = 0.0;
+  var mx = mean(x), my = mean(y);
+  for(var i=0; i<len; i++) s += (x[i]-mx)*(y[i]-my);
+  return s/len;
+}
+
+double variance(List<num> x){
+  var mx = mean(x), s = 0.0;
+  for(var i in x) s += (i-mx)*(i-mx);
+  return s/x.length;
+}
+
+double standardDeviation(List<num> x){
+  return sqrt(variance(x));
+}
+
+double correlation(List<num> x, List<num> y){
+//  if( x.length != y.length ) throw new StateError('unequal dimension');
+  assert( x.length == y.length );
+
+  var len = x.length;
+  var mx = mean(x), my = mean(y);
+  var sxx = 0, syy = 0, sxy = 0;
+  for(var i=0; i<len; i++){
+    var a = x[i]-mx;
+    var b = y[i]-my;
+    sxx += a*a;
+    syy += b*b;
+    sxy += a*b;
+  }
+  // due to floating point,
+  // sometimes sxy/sqrt(sxx)/sqrt(syy) is slightly out bound
+  // to reduce surprise, normalize it.
+  return max(-1.0, min(1.0, sxy/sqrt(sxx)/sqrt(syy)));
+}

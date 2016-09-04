@@ -1,54 +1,5 @@
 import 'dart:math' show min, max;
 
-/* List */
-List list(int len, [x]){
-  if( x is Function ) return new List.generate(len, x);
-  if( x == null ) return new List(len);
-  return new List.filled(len, x);
-}
-
-void swap(List lis, int i, int j){
-  var t = lis[i];
-  lis[i] = lis[j];
-  lis[j] = t;
-}
-
-List<int> listIndices(List list, e){
-  var ix = [];
-  for(var i = list.indexOf(e); i != -1; i = list.indexOf(e,i) ) ix.add(i);
-  return ix;
-}
-
-listReverse(List lis){
-  var i=0, j=lis.length;
-  while( i < j ) swap(lis, i, j);
-}
-
-listDot(List a, List b){
-
-}
-
-/* matrix */
-List<List> matrix(int height, int width, [x]){
-  if( x is Function ) return new List.generate(height, (i) =>
-  new List.generate(width, (j) => x(i,j))
-  );
-  return new List.generate(height, (i) => list(width, x));
-}
-
-matMul(a,b){
-  // todo
-}
-
-matAdd(a,b){
-  // todo
-}
-
-matDet(a){
-  // todo
-}
-
-
 
 /* iterable */
 Iterable range(int n) => new Iterable.generate(n);
@@ -67,3 +18,30 @@ num product(Iterable ite){
 
 num minimum(Iterable ite) => ite.reduce(min);
 num maximum(Iterable ite) => ite.reduce(max);
+
+//class Zip2 extends Iterator {
+//  Iterator x, y;
+//
+//  Zip2(this.x, this.y);
+//
+//  @override
+//  E get current => [x.current, y.current];
+//
+//  @override
+//  bool moveNext() => x.moveNext() && y.moveNext();
+//}
+
+void for2(Iterable a, Iterable b, Function callback, {exhaustive: false}){
+  var x = a.iterator, y = b.iterator;
+  if(exhaustive) while( x.moveNext() || y.moveNext() ) callback(x.current, y.current);
+  else while( x.moveNext() && y.moveNext() ) callback(x.current, y.current);
+}
+
+void for3(Iterable a, Iterable b, Iterable c, Function callback, {exhaustive: false}){
+  var x = a.iterator, y = b.iterator, z = c.iterator;
+  if(exhaustive) while( x.moveNext() || y.moveNext() || z.moveNext() )
+    callback(x.current, y.current, z.current);
+  else while( x.moveNext() && y.moveNext() && z.moveNext() )
+    callback(x.current, y.current, z.current);
+}
+

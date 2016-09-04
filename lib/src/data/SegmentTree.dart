@@ -5,7 +5,7 @@ class SegmentTree<E> {
   List<E> arr;
 
   // len is maximum number of element
-  SegmentTree(int len, E this.identity, int this.combine(E a, E b) ){
+  SegmentTree(int len, E this.identity, E this.combine(E a, E b) ){
     var total = 1;
     width = 1;
     while( width < len ){

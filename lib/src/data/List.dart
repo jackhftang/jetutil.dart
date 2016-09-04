@@ -1,3 +1,4 @@
+
 /* List */
 List list(int len, [x]){
   if( x is Function ) return new List.generate(len, x);
@@ -23,3 +24,13 @@ listReverse(List lis, [int start=0, int end]){
 }
 
 listClone(List lis) => new List.from(lis);
+
+listCompare(List a, List b){
+  assert( a.length == b.length );
+  int len = a.length;
+  for(var i=0; i<len; i++){
+    var n = Comparable.compare(a[i], b[i]);
+    if( n != 0 ) return n;
+  }
+  return 0;
+}
