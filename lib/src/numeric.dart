@@ -51,12 +51,16 @@ List<num> extgcd(a,b){
 
 int logFloor(int b, int n){
   // defined when n > 0, b > 1
+  assert(n > 0);
+  assert(b > 1);
   int cnt = -1, t = 1;
   while( t <= n ){ t *= b; cnt++; }
   return cnt;
 }
 int logCeil(int b, int n){
   // defined when n > 0, b > 1
+  assert(n > 0);
+  assert(b > 1);
   var cnt = 0;
   int t = 1;
   while(t < n){ t *= b; cnt++; }
@@ -84,11 +88,12 @@ int modPow(int m, int x, int n){
 int modInv(int m, int i){
   var arr = extgcd(m,i);
   int x = arr[1], g = arr[2]; // 0 < g && 0 <= x < m
-  return (g.sign * x)%m;
+  assert( g == 1 );     // condition for multiplicative inverse exist
+  return x%m;
 }
 
 
-dot(List a, List b){
+num dot(List a, List b){
   assert(a.length == b.length);
   var len = a.length, acc = 0;
   for(var i=0; i<len; i++) acc += a[i] * b[i];

@@ -1,4 +1,4 @@
-class Enumerator<T> {
+class Enum<T> {
   Map<T,int> map = {};
   List<T> lis = [];
 

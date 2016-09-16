@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 // work even on singular matrix
 // x.length do not necessarily large than x[0].length
@@ -10,7 +11,12 @@ List leastSquare(List< List<double> > x, List<double> y, [EPS=1e-12]){
   var w = x.length;       // nSample
 
   var mat = new List.generate(h,
-      (i) => new List.generate(w, (j) => x[j][i], growable: false),
+//      (i) => new List.generate(w, (j) => x[j][i], growable: false),
+      (i){
+        var lis = new Float64List(w);
+        for(var j=0; j<w; j++) lis[j] = x[j][i];
+        return lis;
+      },
       growable: false
   );
   var vec = new List.from(y, growable: false);
@@ -69,9 +75,9 @@ List leastSquare(List< List<double> > x, List<double> y, [EPS=1e-12]){
     ans[i] /= mat[rank[i]][i];
   }
 
-  var err = dotFrom(rank.length, vec, vec);
-
-  return [ans, err];
+//  var err = dotFrom(rank.length, vec, vec);
+//  return [ans, err];
+  return ans;
 }
 
 class LeastSquare {

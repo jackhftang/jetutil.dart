@@ -6,6 +6,8 @@ List list(int len, [x]){
   return new List.filled(len, x);
 }
 
+listClone(List x) => new List.from(x);
+
 void swap(List lis, int i, int j){
   var t = lis[i];
   lis[i] = lis[j];
@@ -23,8 +25,6 @@ listReverse(List lis, [int start=0, int end]){
   while( start < end ) swap(lis, start, end);
 }
 
-listClone(List lis) => new List.from(lis);
-
 listCompare(List a, List b){
   assert( a.length == b.length );
   int len = a.length;
@@ -34,3 +34,5 @@ listCompare(List a, List b){
   }
   return 0;
 }
+
+

@@ -13,5 +13,7 @@ main(){
 //    var s = "abcdefghijklmnopqrstuvwxyz";
 //    expect( strCodeUnits(s, 'a'), equals(range(26)));
 //  });
-
+  print(-0.0.sign);
+  print(-0.0 < 0.0);
+  print(-0.0 == 0);
 }

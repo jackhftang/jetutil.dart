@@ -5,6 +5,7 @@ export 'src/algorithm/bipartiteMatching.dart' show BipartiteMatching;
 export 'src/algorithm/leastSquare.dart' show leastSquare, LeastSquare;
 export 'src/algorithm/maxFlow.dart' show MaxFlow;
 
+
 // need improvement
 //export 'src/data/AATree.dart';
 export 'src/data/BinaryIndexedTree.dart';
@@ -24,7 +25,7 @@ export 'src/data/UnionFindTree.dart';
 export 'src/io/ByteListScanner.dart';
 
 export 'src/iterable.dart';
-//export 'src/misc.dart';
+export 'src/misc.dart';
 export 'src/numeric.dart';
 export 'src/predicate.dart';
 export 'src/prime.dart';
