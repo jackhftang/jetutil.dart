@@ -1,7 +1,7 @@
 class BipartiteMatching {
   List<List<int>> graph;
   List avail;
-  List match; // contain the matched node
+  List match; // contain the matched nodes
 
   BipartiteMatching(int len){
     graph = new List.generate(len, (i) => [], growable: false);

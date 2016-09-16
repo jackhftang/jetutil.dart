@@ -102,13 +102,19 @@ class MaxFlow {
     graph = new List.generate(nNode, (i) => []);
   }
 
+  // return the index of flow
   add(from, capacity, dest){
     graph[from].add(cap.length);
     cap.add(capacity);
     to.add(dest);
+
     graph[dest].add(cap.length);
-    cap.add(0);
+    cap.add(0);      // represent flow on edge
     to.add(from);
+
+    // i-th added edge:
+    // cap[2*i] is capacity, cap[2*i+1] is flow
+    // cap[2*i] is sink, cap[2*i+1] is src
   }
 
   reset(){
@@ -158,7 +164,7 @@ class MaxFlow {
           num d = dfs(to[e], min(flow, cap[e]));
           if( d > 0 ){
             cap[e] -= d;
-            cap[e^1] += d;
+            cap[e^1] += d;  // switch cap/flow
             return d;
           }
         }

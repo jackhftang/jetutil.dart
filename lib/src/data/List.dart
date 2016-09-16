@@ -6,6 +6,7 @@ List list(int len, [x]){
   return new List.filled(len, x);
 }
 
+/// swallow clone
 listClone(List x) => new List.from(x);
 
 void swap(List lis, int i, int j){

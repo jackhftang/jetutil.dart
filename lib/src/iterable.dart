@@ -27,39 +27,16 @@ Map histogram(Iterable xs){
   return m;
 }
 
-//class Zip2 extends Iterator {
-//  Iterator x, y;
-//
-//  Zip2(this.x, this.y);
-//
-//  @override
-//  E get current => [x.current, y.current];
-//
-//  @override
-//  bool moveNext() => x.moveNext() && y.moveNext();
-//}
-
-void for2(Iterable a, Iterable b, Function callback, {exhaustive: false}){
-  var x = a.iterator, y = b.iterator;
-  if(exhaustive) while( x.moveNext() || y.moveNext() ) callback(x.current, y.current);
-  else while( x.moveNext() && y.moveNext() ) callback(x.current, y.current);
-}
-
-void for3(Iterable a, Iterable b, Iterable c, Function callback, {exhaustive: false}){
-  var x = a.iterator, y = b.iterator, z = c.iterator;
-  if(exhaustive) while( x.moveNext() || y.moveNext() || z.moveNext() )
-    callback(x.current, y.current, z.current);
-  else while( x.moveNext() && y.moveNext() && z.moveNext() )
-    callback(x.current, y.current, z.current);
-}
-
-void cartesian(int n, List lis, callback){
+void cartesian(int n, List lis, bool callback(List) ){
   var v = new List(n);
-  run(i){
-    if( i == n ) callback(v);
-    else for(var j=0; j<lis.length; j++){
-      v[i] = lis[j];
-      run(i+1);
+  bool run(i){
+    if( i == n ) return callback(v) ?? false;
+    else {
+      for(var j=0; j<lis.length; j++){
+        v[i] = lis[j];
+        if( run(i+1) ) return true;
+      }
+      return false;
     }
   }
   run(0);
@@ -68,13 +45,14 @@ void cartesian(int n, List lis, callback){
 void powerSet(List lis, callback){
   var x = [];
   var n = lis.length;
-  run(i){
-    if( i == n ) callback(x);
+  bool run(i){
+    if( i == n ) return callback(x) ?? false;
     else {
-      run(i+1);
+      if( run(i+1) ) return true;
       x.add(lis[i]);
-      run(i+1);
+      if( run(i+1) ) return true;
       x.removeLast();
+      return false;
     }
   }
   run(0);
@@ -82,18 +60,19 @@ void powerSet(List lis, callback){
 
 void combination(int sel, List lis, callback){
   var len = lis.length;
-  var leastUpperBound = 0;
+  var start = 0;
   var val = new List.generate(sel, (i) => i);
 
-  combinator(int i){
-    if(i == sel) callback(val);
+  bool combinator(int i){
+    if(i == sel) return callback(val) ?? false;
     else {
       var m = len-sel+i;
-      for(var j=leastUpperBound; j<=m; j++){
+      for(var j=start; j<=m; j++){
         val[i] = lis[j];
-        leastUpperBound=j+1;
-        combinator(i+1);
+        start=j+1;
+        if( combinator(i+1) ) return true;
       }
+      return false;
     }
   }
   combinator(0);
@@ -101,20 +80,21 @@ void combination(int sel, List lis, callback){
 
 void permutation(List lis, callback){
   // modify in-place
-  run(n){
-    if(n == 0 ) callback(lis);
+  bool run(n){
+    if( n == 0 ) return callback(lis) ?? false;
     else if( isOdd(n) ){
       for(var i=0; i<=n; i++){
-        run(n-1);
+        if( run(n-1) ) return true;
         swap(lis, 0, n);
       }
     }
     else {
       for(var i=0; i<=n; i++){
-        run(n-1);
+        if( run(n-1) ) return true;
         swap(lis, i, n);
       }
     }
+    return false;
   }
   run(lis.length-1);
 }

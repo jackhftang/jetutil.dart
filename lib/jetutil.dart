@@ -1,10 +1,13 @@
 export 'dart:math';
 export 'dart:collection';
+export 'dart:async' show scheduleMicrotask;
+
 
 export 'src/algorithm/bipartiteMatching.dart' show BipartiteMatching;
 export 'src/algorithm/leastSquare.dart' show leastSquare, LeastSquare;
 export 'src/algorithm/maxFlow.dart' show MaxFlow;
-
+export 'src/algorithm/SAT.dart' show HornSAT;
+export 'src/algorithm/leastCommonAncestor.dart' show LeastCommonAncestor;
 
 // need improvement
 //export 'src/data/AATree.dart';
@@ -21,6 +24,8 @@ export 'src/data/Matrix.dart';
 export 'src/data/SegmentTree.dart';
 export 'src/data/String.dart';
 export 'src/data/UnionFindTree.dart';
+export 'src/data/Monoid.dart';
+
 
 export 'src/io/ByteListScanner.dart';
 

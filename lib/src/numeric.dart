@@ -35,11 +35,22 @@ int bitCnt(int n){
   return cnt;
 }
 
+int bitClearLeast1(int n) => n & (n-1);
+int bitSetLeast0(int n) => n | (n+1);
+int bitLeast0(int n) => ~n & (n+1);
+int bitLeast1(int n) => n & -n;
+
 /* arithmetic */
 int sqrtFloor(int n) => bsearchMax(0,(1<<31),(i) => i*i <= n);
 int sqrtCeil(int n) => bsearchMin(-1,(1<<31),(i) => n <= i*i);
 
 int factorial(int n) => n == 0 ? 1 : n * factorial(n-1);
+int binomial(int n, int r){
+  if( 2 * r > n ) r = n-r;
+  int ans = 1;
+  for(int i=1; i<=r; i++) ans = (ans*n--)~/i;
+  return ans;
+}
 
 int gcd(a,b) => b == 0 ? a : gcd(b, a%b);
 List<num> extgcd(a,b){
@@ -147,3 +158,4 @@ double correlation(List<num> x, List<num> y){
   // to reduce surprise, normalize it.
   return max(-1.0, min(1.0, sxy/sqrt(sxx)/sqrt(syy)));
 }
+
