@@ -6,6 +6,7 @@ class SegmentTree<E> {
 
   // len is maximum number of element
   // combine(identity, x) = combine(x, identity) = x for all x
+  // O(log(N)) or practically constant time
   SegmentTree(int len, E this.identity, E this.combine(E a, E b) ){
     var total = 1;
     width = 1;
@@ -16,6 +17,7 @@ class SegmentTree<E> {
     arr = new List.filled(total, identity);
   }
 
+  // O(N)
   SegmentTree.fromList(List lis, this.identity, E this.combine(E a, E b)){
     var total = 1;
     width = 1;

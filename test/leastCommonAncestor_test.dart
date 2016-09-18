@@ -17,9 +17,10 @@ main() {
      */
 
     lca.build();
-    print(lca.segment.arr);
 
     expect(lca.query(1, 2), equals(0));
+    expect(lca.query(2, 1), equals(0));
+
     expect(lca.query(1, 3), equals(0));
     expect(lca.query(1, 4), equals(0));
     expect(lca.query(3, 4), equals(2));
@@ -30,6 +31,11 @@ main() {
     expect(lca.query(0, 2), equals(0));
     expect(lca.query(0, 3), equals(0));
     expect(lca.query(0, 4), equals(0));
+
+    expect(lca.query(1, 0), equals(0));
+    expect(lca.query(2, 0), equals(0));
+    expect(lca.query(3, 0), equals(0));
+    expect(lca.query(4, 0), equals(0));
 
     for (var i = 0; i < 5; i++)
       expect(lca.query(i, i), equals(i));

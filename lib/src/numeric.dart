@@ -8,7 +8,7 @@ max4(a,b,c,d) => max(max(a,b), max(c,d));
 
 //int avg2(a,b) => (a&b) + ((a^b)>>1);
 
-int bsearchMin(int a, int b, test){
+int bsearchMin(int a, int b, bool test(int)){
   // b is true and valid
   while(b-a != 1){
     int mid = (a+b)~/2;
@@ -18,10 +18,32 @@ int bsearchMin(int a, int b, test){
   return b;
 }
 
-int bsearchMax(int a, int b, test){
+int bsearchMax(int a, int b, bool test(int)){
   // a is true and valid
   while(b-a != 1){
     int mid = (a+b)~/2;
+    if(test(mid)) a = mid;
+    else b = mid;
+  }
+  return a;
+}
+
+double bsearchMinDouble(double a, double b, bool test(double)){
+  var prev = 0.0;
+  while(b-a != prev){
+    prev = b-a;
+    double mid = (a+b)/2;
+    if(test(mid)) b = mid;
+    else a = mid;
+  }
+  return b;
+}
+
+double bsearchMaxDouble(double a, double b, bool test(double)){
+  var prev = 0.0;
+  while(b-a != prev){
+    prev = b-a;
+    double mid = (a+b)/2;
     if(test(mid)) a = mid;
     else b = mid;
   }

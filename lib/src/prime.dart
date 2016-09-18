@@ -36,7 +36,6 @@ List<int> primeList(int len){
   return lis;
 }
 
-
 // good when n < 1e6
 List<int> sieveUnder(int n){
   var sieve = new List.filled(n, true);
@@ -58,8 +57,6 @@ List<int> primeUnder(int n){
   return primes;
 }
 
-
-
 List<int> factorizeList(List<int> primes, int n){
   var fs = [];
   var i = 0;
@@ -78,7 +75,7 @@ List<int> factorizeList(List<int> primes, int n){
   }
 }
 
-List<List> factorizeBag(List<int> primes, int n){
+List<List<int>> factorizeBag(List<int> primes, int n){
   var fs = [];
   var i = 0;
   while( true ){
@@ -96,7 +93,6 @@ List<List> factorizeBag(List<int> primes, int n){
     if( cnt > 0 ) fs.add([p,cnt]);
   }
 }
-
 
 // sum of all factors of n including 1 and n
 int factorSum(List<int> primes, int n){
