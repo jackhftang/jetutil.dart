@@ -3,12 +3,12 @@ import 'dart:collection';
 import 'package:test/test.dart';
 import 'package:jetutil/src/data/OrderStatisticTree.dart';
 
-const SIZE = 1000;
+const SIZE = 2000;
 const SEED = 88;
 
 takeMinTest(){
   var size = SIZE;
-  var n = new Node();
+  var n = new OrderStatisticTree();
   for(var i=0; i<size; i++){
     n.add(i);
     assert(n.size == i+1);
@@ -28,7 +28,7 @@ takeMinTest(){
 
 takeMaxTest(){
   var size = SIZE;
-  var n = new Node();
+  var n = new OrderStatisticTree();
   for(var i=size; i-- >0; ){
     n.add(i);
     assert(n.size == size-i);
@@ -48,7 +48,7 @@ takeMaxTest(){
 
 removeTest(){
   var size = SIZE;
-  var n = new Node();
+  var n = new OrderStatisticTree();
   var r = new Random(SEED);
   var v = new List.generate(size, (i) => i);
   v.shuffle();
@@ -74,7 +74,7 @@ peekAndRemoveTest(){
   var size = SIZE;
   var arr = new List.generate(size, (i) => i)..shuffle();
   var vs = [];
-  var n = new Node();
+  var n = new OrderStatisticTree();
   for(var i=0; i<size; i++){
     var x = arr[i];
     vs.add(x);
@@ -98,20 +98,26 @@ peekAndRemoveTest(){
 }
 
 rankTest(){
-  var vs = new List.generate(SIZE, (i) => i);
-  vs.shuffle();
-  var n = new Node();
+  var trans = (x) => x*2.0;
+  var vs = new List.generate(SIZE, trans);
+  var n = new OrderStatisticTree<double>();
   var r = new Random(SEED);
+  vs.shuffle(r);
   for(var i=0; i<vs.length; i++){
-    n.add(i);
-    var x = r.nextInt(i+1);
-    assert(n.rank(x) == x);
+    n.add(vs[i]);
+    var t = vs.sublist(0,i+1)..sort();
+    for(var j=0; j<t.length; j++){
+      assert(n.select(j) == t[j]);
+      assert(n.rank(t[j]) == j);
+    }
+    assert(n.select(t.length) == null);
+    assert(n.rank(0.123) == -1);
   }
 }
 
 maxUnderAndMinOverTest(){
   var size = SIZE;
-  var n = new Node();
+  var n = new OrderStatisticTree();
   for(var i=0; i<size; i++){
     n.add(i);
   }
@@ -123,6 +129,7 @@ maxUnderAndMinOverTest(){
     assert( n.minOverEqual(i) == i );
   }
 }
+
 
 main() {
   test('takeMin', takeMinTest);
