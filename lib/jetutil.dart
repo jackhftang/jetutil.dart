@@ -19,8 +19,7 @@ export 'src/data/Enumerator.dart';
 export 'src/data/Heap.dart';
 export 'src/data/List.dart';
 export 'src/data/Matrix.dart';
-// need to add select()
-//export 'src/data/OrderStatisticTree.dart';
+export 'src/data/OrderStatisticTree.dart';
 export 'src/data/SegmentTree.dart';
 export 'src/data/String.dart';
 export 'src/data/UnionFindTree.dart';
